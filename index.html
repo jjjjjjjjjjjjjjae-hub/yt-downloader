@@ -184,8 +184,13 @@ setTimeout(()=>{lock.style.display="block";splash.style.opacity="0";setTimeout((
 #erke-music-panel{position:fixed;right:14px;bottom:calc(145px + env(safe-area-inset-bottom));width:min(360px,calc(100vw - 28px));border-radius:14px;background:#161616;box-shadow:0 6px 24px #0004;z-index:20;display:none;padding:7px}
 #erke-music-panel[data-open="yes"]{display:block}
 #erke-music-panel iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
+#erke-voice-btn{position:fixed;right:68px;bottom:calc(92px + env(safe-area-inset-bottom));width:44px;height:44px;border:0;border-radius:50%;background:#f0f1f6;color:#07102d;box-shadow:0 3px 12px #0003;z-index:20;display:grid;place-items:center;font-size:22px;cursor:pointer}
+#erke-voice-status:not([hidden]){position:fixed;bottom:calc(148px + env(safe-area-inset-bottom));right:14px;max-width:min(340px,calc(100vw - 28px));background:#131a31;color:white;font-size:12px;line-height:1.45;padding:10px 13px;border-radius:12px;box-shadow:0 3px 15px #0003;z-index:25}
 </style>
 <button id="erke-music-btn" type="button" aria-label="Ерке қыз музыкасын ашу" aria-expanded="false" title="Ерке қыз · Spotify">♫</button>
+<!-- Микрофонға рұқсат тек пайдаланушы батырманы басқанда сұралады; дыбыс сақталмайды -->
+<button id="erke-voice-btn" type="button" aria-label="Дауыс үшін микрофонға рұқсат сұрау" title="Дауыс үшін микрофон рұқсаты">🎙</button>
+<div id="erke-voice-status" role="status" aria-live="polite" hidden></div>
 <div id="erke-music-panel" role="region" aria-label="Ерке қыз · Spotify" data-open="no"></div>
 <script>
 (function(){
@@ -205,6 +210,37 @@ setTimeout(()=>{lock.style.display="block";splash.style.opacity="0";setTimeout((
    panel.setAttribute('data-open',opening?'yes':'no');
    btn.setAttribute('aria-expanded',opening?'true':'false');
    btn.setAttribute('aria-label',opening?'Музыка ойнатқышын жабу':'Ерке қыз музыкасын ашу');
+ });
+})();
+</script>
+<script>
+(function(){
+ "use strict";
+ const button=document.getElementById("erke-voice-btn");
+ const status=document.getElementById("erke-voice-status");
+ let timer=null;
+ function show(message){
+   status.textContent=message;
+   status.hidden=false;
+   clearTimeout(timer);
+   timer=setTimeout(function(){status.hidden=true;},4500);
+ }
+ button.addEventListener("click",async function(){
+   if(!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+     show("Микрофонға рұқсат беру бұл браузерде қолжетімсіз. HTTPS қажет.");
+     return;
+   }
+   button.disabled=true;
+   try{
+     // Тек рұқсат сұрау: жазу да, серверге жіберу де жоқ.
+     const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+     stream.getTracks().forEach(function(track){track.stop();});
+     show("Микрофон рұқсаты берілді. Дауыс жазылмайды және жіберілмейді.");
+   }catch(error){
+     show(error && (error.name==="NotAllowedError" || error.name==="PermissionDeniedError")
+       ?"Микрофонға рұқсат берілмеді. Браузер параметрлерінен өзгерте аласыз."
+       :"Микрофон қолжетімсіз немесе рұқсат сұрау сәтсіз аяқталды.");
+   }finally{button.disabled=false;}
  });
 })();
 </script>
