@@ -177,5 +177,36 @@ render();
 setTimeout(()=>{lock.style.display="block";splash.style.opacity="0";setTimeout(()=>splash.remove(),320);},900);
 })();
 </script>
+
+<!-- ЕРКЕ ҚЫЗ · SPOTIFY PLAYER: standalone, does not alter the app or its logic -->
+<style>
+#erke-music-btn{position:fixed;right:14px;bottom:calc(92px + env(safe-area-inset-bottom));width:44px;height:44px;border:0;border-radius:50%;background:#10182f;color:#fff;box-shadow:0 3px 12px #0003;z-index:20;display:grid;place-items:center;font-size:25px;cursor:pointer}
+#erke-music-panel{position:fixed;right:14px;bottom:calc(145px + env(safe-area-inset-bottom));width:min(360px,calc(100vw - 28px));border-radius:14px;background:#161616;box-shadow:0 6px 24px #0004;z-index:20;display:none;padding:7px}
+#erke-music-panel[data-open="yes"]{display:block}
+#erke-music-panel iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
+</style>
+<button id="erke-music-btn" type="button" aria-label="Ерке қыз музыкасын ашу" aria-expanded="false" title="Ерке қыз · Spotify">♫</button>
+<div id="erke-music-panel" role="region" aria-label="Ерке қыз · Spotify" data-open="no"></div>
+<script>
+(function(){
+ var btn=document.getElementById('erke-music-btn');
+ var panel=document.getElementById('erke-music-panel');
+ btn.addEventListener('click',function(){
+   var opening=panel.getAttribute('data-open')!=='yes';
+   if(opening&&!panel.firstChild){
+     var player=document.createElement('iframe');
+     player.title='Spotify: Ерке қыз — Жігіттер кв';
+     player.src='https://open.spotify.com/embed/track/2ESu2FxfSzFLSXSFEzCe1w';
+     player.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+     player.loading='lazy';
+     player.referrerPolicy='strict-origin-when-cross-origin';
+     panel.appendChild(player);
+   }
+   panel.setAttribute('data-open',opening?'yes':'no');
+   btn.setAttribute('aria-expanded',opening?'true':'false');
+   btn.setAttribute('aria-label',opening?'Музыка ойнатқышын жабу':'Ерке қыз музыкасын ашу');
+ });
+})();
+</script>
 </body>
 </html>
