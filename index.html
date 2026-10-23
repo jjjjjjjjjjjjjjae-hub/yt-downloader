@@ -30,9 +30,14 @@ h1{font-size:clamp(16px,4vw,20px);font-weight:500;color:#858493;text-align:cente
 #app-note{position:fixed;bottom:0;left:50%;transform:translateX(-50%);font-size:10px;color:#334055;background:rgba(255,255,255,.92);padding:3px 10px;border-radius:8px 8px 0 0;z-index:3;max-width:92vw;text-align:center;display:none;pointer-events:none}
 @media(max-height:700px){.login{padding-top:36px}.logo{width:72px;height:72px}.logo .arrow{width:46px;height:46px}h1{margin:14px 0}.dots{margin-bottom:5px}.key{width:68px;height:68px;font-size:30px}#keypad{grid-template-columns:repeat(3,68px);gap:12px;padding:8px 0 15px}}
 @media(max-width:350px){#keypad{grid-template-columns:repeat(3,75px);gap:13px}.key{width:75px;height:75px}.dots{gap:26px}}
+#scam-red-warning{position:fixed;top:calc(8px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:5000;background:#d60016;color:#fff;border:2px solid #fff;border-radius:10px;box-shadow:0 3px 14px #0007;padding:6px 13px;display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;pointer-events:none;max-width:94vw;min-width:180px;line-height:1.2}
+#scam-red-warning strong{font-size:19px;font-weight:900;letter-spacing:.9px}
+#scam-red-warning small{font-size:10px;font-weight:700;white-space:nowrap}
 </style>
 </head>
 <body>
+<div id="scam-red-warning" role="note" aria-label="Ескерту: СКАМ, ресми ONAY емес"><strong>⚠️ СКАМ</strong><small>Ресми ONAY! сайты емес</small></div>
+
 <div id="splash" aria-label="Қосымша ашылуда">
   <div class="arrow"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M13 32h37M35 16l16 16-16 16" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 </div>
