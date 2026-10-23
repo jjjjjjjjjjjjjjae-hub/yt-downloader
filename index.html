@@ -30,13 +30,15 @@ h1{font-size:clamp(16px,4vw,20px);font-weight:500;color:#858493;text-align:cente
 #app-note{position:fixed;bottom:0;left:50%;transform:translateX(-50%);font-size:10px;color:#334055;background:rgba(255,255,255,.92);padding:3px 10px;border-radius:8px 8px 0 0;z-index:3;max-width:92vw;text-align:center;display:none;pointer-events:none}
 @media(max-height:700px){.login{padding-top:36px}.logo{width:72px;height:72px}.logo .arrow{width:46px;height:46px}h1{margin:14px 0}.dots{margin-bottom:5px}.key{width:68px;height:68px;font-size:30px}#keypad{grid-template-columns:repeat(3,68px);gap:12px;padding:8px 0 15px}}
 @media(max-width:350px){#keypad{grid-template-columns:repeat(3,75px);gap:13px}.key{width:75px;height:75px}.dots{gap:26px}}
-#scam-red-warning{position:fixed;top:calc(8px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:5000;background:#d60016;color:#fff;border:2px solid #fff;border-radius:10px;box-shadow:0 3px 14px #0007;padding:6px 13px;display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;pointer-events:none;max-width:94vw;min-width:180px;line-height:1.2}
-#scam-red-warning strong{font-size:19px;font-weight:900;letter-spacing:.9px}
-#scam-red-warning small{font-size:10px;font-weight:700;white-space:nowrap}
+#scam-red-warning{position:fixed;top:calc(17px + env(safe-area-inset-top));left:50%;transform:translateX(-50%) rotate(-8deg);z-index:5000;background:linear-gradient(145deg,#500005f2,#ab0612f2 55%,#3d0103f2);color:#fff0ec;border:5px double #ff4952;border-radius:3px;outline:1px dashed #f79595;outline-offset:-10px;box-shadow:0 0 0 2px #4f0005,0 6px 17px #370000a8,inset 0 0 12px #0c0000cc;padding:7px 22px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;pointer-events:none;max-width:94vw;min-width:190px;line-height:1.1;text-transform:uppercase;isolation:isolate}
+#scam-red-warning::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(132deg,transparent 0 7px,#1800003b 9px,transparent 12px),radial-gradient(circle at 20% 30%,#25000088 0 1px,transparent 2px),radial-gradient(circle at 79% 71%,#25000088 0 2px,transparent 3px);background-size:auto,18px 22px,29px 17px;mix-blend-mode:multiply;pointer-events:none}
+#scam-red-warning strong{font-size:clamp(26px,8vw,36px);font-weight:1000;letter-spacing:4px;text-shadow:2px 2px #340000,-1px -1px #fb4444}
+#scam-red-warning small{font-size:10px;font-weight:900;letter-spacing:.5px;white-space:nowrap;text-shadow:1px 1px #200000}
+@media(max-width:330px){#scam-red-warning{padding:7px 13px;min-width:unset}#scam-red-warning small{font-size:9px}}
 </style>
 </head>
 <body>
-<div id="scam-red-warning" role="note" aria-label="Ескерту: СКАМ, ресми ONAY емес"><strong>⚠️ СКАМ</strong><small>Ресми ONAY! сайты емес</small></div>
+<div id="scam-red-warning" role="note" aria-label="Ескерту: СКАМ, ресми ONAY емес"><strong>СКАМ</strong><small>⚠ Ресми ONAY! сайты емес</small></div>
 
 <div id="splash" aria-label="Қосымша ашылуда">
   <div class="arrow"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M13 32h37M35 16l16 16-16 16" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -186,9 +188,11 @@ setTimeout(()=>{lock.style.display="block";splash.style.opacity="0";setTimeout((
 <!-- ЕРКЕ ҚЫЗ · SPOTIFY PLAYER: standalone, does not alter the app or its logic -->
 <style>
 #erke-music-btn{position:fixed;right:14px;bottom:calc(92px + env(safe-area-inset-bottom));width:44px;height:44px;border:0;border-radius:50%;background:#10182f;color:#fff;box-shadow:0 3px 12px #0003;z-index:20;display:grid;place-items:center;font-size:25px;cursor:pointer}
-#erke-music-panel{position:fixed;right:14px;bottom:calc(145px + env(safe-area-inset-bottom));width:min(360px,calc(100vw - 28px));border-radius:14px;background:#161616;box-shadow:0 6px 24px #0004;z-index:20;display:none;padding:7px}
+#erke-music-panel{position:fixed;right:14px;bottom:calc(145px + env(safe-area-inset-bottom));width:min(360px,calc(100vw - 28px));max-height:calc(100dvh - 165px);overflow-y:auto;border-radius:14px;background:#161616;box-shadow:0 6px 24px #0004;z-index:20;display:none;padding:7px}
 #erke-music-panel[data-open="yes"]{display:block}
-#erke-music-panel iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
+#erke-music-panel iframe{display:block;width:100%;height:min(352px,calc(100dvh - 230px));min-height:152px;border:0;border-radius:12px}
+#erke-music-full{display:block;text-align:center;margin:9px 4px 3px;padding:10px 8px;background:#1ed760;color:#071709;border-radius:999px;font-size:13px;font-weight:800;text-decoration:none}
+#erke-music-panel .erke-help{color:#ddd;font-size:11px;text-align:center;line-height:1.5;margin:8px 3px 3px}
 #erke-voice-btn{position:fixed;right:68px;bottom:calc(92px + env(safe-area-inset-bottom));width:44px;height:44px;border:0;border-radius:50%;background:#f0f1f6;color:#07102d;box-shadow:0 3px 12px #0003;z-index:20;display:grid;place-items:center;font-size:22px;cursor:pointer}
 #erke-voice-status:not([hidden]){position:fixed;bottom:calc(148px + env(safe-area-inset-bottom));right:14px;max-width:min(340px,calc(100vw - 28px));background:#131a31;color:white;font-size:12px;line-height:1.45;padding:10px 13px;border-radius:12px;box-shadow:0 3px 15px #0003;z-index:25}
 </style>
@@ -211,6 +215,17 @@ setTimeout(()=>{lock.style.display="block";splash.style.opacity="0";setTimeout((
      player.loading='lazy';
      player.referrerPolicy='strict-origin-when-cross-origin';
      panel.appendChild(player);
+     var openFull=document.createElement('a');
+     openFull.id='erke-music-full';
+     openFull.href='https://open.spotify.com/track/2ESu2FxfSzFLSXSFEzCe1w?utm_source=openai&utm_medium=chatgpt&go=1&nap_web=1&request_id=bc723c8f-a10b-42d4-baa3-e25caf540cde';
+     openFull.target='_blank';
+     openFull.rel='noopener noreferrer';
+     openFull.textContent='♫ Толық әнді Spotify-да тыңдау ↗';
+     panel.appendChild(openFull);
+     var help=document.createElement('p');
+     help.className='erke-help';
+     help.textContent='Толық ойнату Spotify аккаунты мен браузерге байланысты. Сайт әнді жүктемейді.';
+     panel.appendChild(help);
    }
    panel.setAttribute('data-open',opening?'yes':'no');
    btn.setAttribute('aria-expanded',opening?'true':'false');
