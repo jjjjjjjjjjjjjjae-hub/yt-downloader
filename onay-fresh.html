@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffdc00">
+<title>Кіру — Transit Web</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#07102d;background:#fff}
+*{box-sizing:border-box}body{margin:0;overflow:hidden}button{font-family:inherit;touch-action:manipulation;cursor:pointer}
+#application{position:fixed;inset:0;width:100%;height:100%;border:0;display:none;background:#fff}
+#splash{position:fixed;inset:0;background:#ffdb00;display:flex;justify-content:center;align-items:center;z-index:1001;transition:opacity .3s}
+.arrow{width:116px;height:116px;border-radius:50%;background:#030a28;position:relative;display:grid;place-items:center}
+.arrow svg{width:74px;height:74px;color:#ffda00}
+#lock{position:fixed;inset:0;background:#fff;z-index:1000;display:none;overflow-y:auto;overscroll-behavior:contain}
+.login{min-height:100dvh;max-width:490px;margin:auto;display:flex;flex-direction:column;align-items:center;padding: max(64px,12vh) 20px max(22px,env(safe-area-inset-bottom))}
+.logo{width:98px;height:98px;border-radius:50%;background:linear-gradient(#ffe300,#ffac06);display:grid;place-items:center;flex-shrink:0}
+.logo .arrow{width:60px;height:60px}.logo .arrow svg{width:37px;height:37px}
+h1{font-size:clamp(16px,4vw,20px);font-weight:500;color:#858493;text-align:center;line-height:1.45;margin:31px 0 24px}
+.dots{display:flex;gap:36px;justify-content:center;margin:0 0 12px}
+.dot{width:17px;height:17px;border:2px solid #ced0db;border-radius:50%}
+.dot.on{border-color:#030b2b;background:#030b2b}
+#hint{font-size:12px;color:#888b9a;min-height:40px;max-width:355px;text-align:center;line-height:1.5;padding:0 8px}
+#hint.error{color:#c62d31}
+#keypad{margin-top:auto;padding:20px 0 min(7vh,70px);display:grid;grid-template-columns:repeat(3,92px);gap:20px 19px}
+.key{border:0;background:#f3f4f9;color:#050c28;border-radius:999px;width:92px;height:92px;display:grid;place-items:center;font-size:40px;font-weight:600}
+.key:active{background:#e8eaf2;transform:scale(.97)}.key.icon{color:#6f7385}
+.key svg{width:35px;height:35px}
+#notice{font-size:10px;color:#999;text-align:center;line-height:1.45;max-width:360px}
+#app-note{position:fixed;bottom:0;left:50%;transform:translateX(-50%);font-size:10px;color:#334055;background:rgba(255,255,255,.92);padding:3px 10px;border-radius:8px 8px 0 0;z-index:3;max-width:92vw;text-align:center;display:none;pointer-events:none}
+@media(max-height:700px){.login{padding-top:36px}.logo{width:72px;height:72px}.logo .arrow{width:46px;height:46px}h1{margin:14px 0}.dots{margin-bottom:5px}.key{width:68px;height:68px;font-size:30px}#keypad{grid-template-columns:repeat(3,68px);gap:12px;padding:8px 0 15px}}
+@media(max-width:350px){#keypad{grid-template-columns:repeat(3,75px);gap:13px}.key{width:75px;height:75px}.dots{gap:26px}}
+#scam-red-warning{position:fixed;top:calc(17px + env(safe-area-inset-top));left:50%;transform:translateX(-50%) rotate(-8deg);z-index:5000;background:linear-gradient(145deg,#500005f2,#ab0612f2 55%,#3d0103f2);color:#fff0ec;border:5px double #ff4952;border-radius:3px;outline:1px dashed #f79595;outline-offset:-10px;box-shadow:0 0 0 2px #4f0005,0 6px 17px #370000a8,inset 0 0 12px #0c0000cc;padding:7px 22px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;pointer-events:none;max-width:94vw;min-width:190px;line-height:1.1;text-transform:uppercase;isolation:isolate}
+#scam-red-warning::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(132deg,transparent 0 7px,#1800003b 9px,transparent 12px),radial-gradient(circle at 20% 30%,#25000088 0 1px,transparent 2px),radial-gradient(circle at 79% 71%,#25000088 0 2px,transparent 3px);background-size:auto,18px 22px,29px 17px;mix-blend-mode:multiply;pointer-events:none}
+#scam-red-warning strong{font-size:clamp(26px,8vw,36px);font-weight:1000;letter-spacing:4px;text-shadow:2px 2px #340000,-1px -1px #fb4444}
+#scam-red-warning small{font-size:10px;font-weight:900;letter-spacing:.5px;white-space:nowrap;text-shadow:1px 1px #200000}
+@media(max-width:330px){#scam-red-warning{padding:7px 13px;min-width:unset}#scam-red-warning small{font-size:9px}}
+</style>
+</head>
+<body>
+<div id="scam-red-warning" role="note" aria-label="Ескерту: СКАМ, ресми ONAY емес"><strong>СКАМ</strong><small>⚠ Ресми ONAY! сайты емес</small></div>
+
+<div id="splash" aria-label="Қосымша ашылуда">
+  <div class="arrow"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M13 32h37M35 16l16 16-16 16" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+</div>
+<section id="lock" aria-label="Кіру коды" aria-live="polite">
+<div class="login">
+ <div class="logo"><div class="arrow"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M12 32h38M35 17l15 15-15 15" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+ <h1 id="title">Кіру кодын орнатыңыз</h1>
+ <div class="dots" id="dots" aria-label="4 сандық код"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+ <p id="hint">ONAY! аккаунтыңыздың PIN-кодын пайдаланбаңыз. Осы веб-нұсқа үшін бөлек 4 сан таңдаңыз.</p>
+ <div id="keypad">
+  <button class="key" data-digit="1">1</button><button class="key" data-digit="2">2</button><button class="key" data-digit="3">3</button>
+  <button class="key" data-digit="4">4</button><button class="key" data-digit="5">5</button><button class="key" data-digit="6">6</button>
+  <button class="key" data-digit="7">7</button><button class="key" data-digit="8">8</button><button class="key" data-digit="9">9</button>
+  <button class="key icon" id="biometric" aria-label="Саусақ ізі">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6" aria-hidden="true"><path d="M5 9a7 7 0 0 1 14 0M2.5 9a9.5 9.5 0 0 1 19 0M12 6c-2.5 0-4 1.8-4 4.5 0 4-1 7.4-2.8 10.1M12 9c-1 0-1 1.1-1 2.1 0 4.4-.3 7.7-2 11M15 9.5c0 6-1 10.1-3.2 12.8M18 10c0 4.9-.9 8.1-2.2 11.5M4.6 12c0 2.3-.3 4.3-1 5.8"/></svg>
+  </button>
+  <button class="key" data-digit="0">0</button>
+  <button class="key icon" id="backspace" aria-label="Өшіру"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h13v16H8L2 12zM11 9l6 6m0-6-6 6"/></svg></button>
+ </div>
+ <small id="notice">Бұл құрылғыға арналған жергілікті экран құлпы. Ресми ONAY! аутентификациясы емес.</small>
+</div>
+</section>
+<iframe id="application" title="Transit Web қолданбасы" referrerpolicy="same-origin" allow="camera"></iframe>
+<div id="app-note">Ресми ONAY! төлемін немесе жарамды билетті алмастырмайды</div>
+<script>
+(function(){
+"use strict";
+const KEY="transitweb-local-pin-v1", LOCK="transitweb-lock-v1";
+const el=id=>document.getElementById(id);
+const lock=el("lock"), splash=el("splash"),frame=el("application");
+let mode="new", buf="", first="", busy=false, unlocked=false;
+let saved=null;
+try {saved=JSON.parse(localStorage.getItem(KEY)||"null");}catch(e){}
+if(saved&&saved.salt&&saved.hash){mode="unlock";}
+const dots=Array.from(document.querySelectorAll(".dot"));
+function info(message,error){el("hint").textContent=message;el("hint").classList.toggle("error",!!error);}
+function draw(){dots.forEach((dot,i)=>dot.classList.toggle("on",i<buf.length));}
+function render(){
+ el("title").textContent=mode==="new"?"Жаңа кіру кодын орнатыңыз":mode==="confirm"?"Кодты қайталаңыз":"Fingerprint / Face ID немесе кіру коды";
+ if(mode==="new")info("ONAY! аккаунтыңыздың PIN-кодын пайдаланбаңыз. Осы веб-нұсқа үшін бөлек 4 сан таңдаңыз.");
+ if(mode==="confirm")info("PIN-кодты растау үшін қайта теріңіз.");
+ if(mode==="unlock")info("Осы веб-нұсқаға өзіңіз орнатқан 4 сандық PIN-кодты енгізіңіз.");
+ draw();
+}
+function bytes(n){let a=new Uint8Array(n);crypto.getRandomValues(a);return a;}
+function b64(a){return btoa(String.fromCharCode.apply(null,Array.from(a)));}
+function from64(s){return Uint8Array.from(atob(s),c=>c.charCodeAt(0));}
+async function digest(pin,salt){
+ const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(pin),"PBKDF2",false,["deriveBits"]);
+ const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:from64(salt),iterations:200000,hash:"SHA-256"},key,256);
+ return b64(new Uint8Array(bits));
+}
+function equal(a,b){if(a.length!==b.length)return false;let n=0;for(let i=0;i<a.length;i++)n|=a.charCodeAt(i)^b.charCodeAt(i);return n===0;}
+function getWait(){
+ let v;try{v=JSON.parse(localStorage.getItem(LOCK)||"{}");}catch(e){v={};}
+ return Math.max(0,Number(v.until||0)-Date.now());
+}
+function replaceText(s){
+ return String(s)
+ .replace(/Демо-нұсқа:\s*төлем жасалмайды/gi,"Төлем жүйесіне байланыс орнатылмаған")
+ .replace(/Төлем картасын ауыстыру демо/gi,"Төлем картасын ауыстыру қолжетімсіз")
+ .replace(/Жеке мекенжайды қосу демо-нұсқада іске қосылмаған/gi,"Мекенжайды қосу қызметі қолжетімсіз")
+ .replace(/Бұл бет — интерфейс демосы\./gi,"Қызметке қосылу үшін ресми операторға жүгініңіз.")
+ .replace(/Бұл демода нақты карта қосылмайды\./gi,"Нақты карта қосу қолжетімсіз.")
+ .replace(/Бұл демо-нұсқа:\s*нақты карта қосылмайды/gi,"Карта қосу қызметі қолжетімсіз")
+ .replace(/Толықтыру интерфейсі дайын\.\s*Бұл демо-нұсқа\./gi,"Толықтыру қызметі қолжетімсіз")
+ .replace(/демо(?:-нұсқа(?:да|сы)?|да|сы)?|сынақ(?:\s+нұсқа(?:сы)?)?/gi,"жүйеге қосылмаған");
+}
+function applyLabels(){
+ try{
+  const d=frame.contentDocument;if(!d||!d.body)return;
+  const w=d.createTreeWalker(d.body,NodeFilter.SHOW_TEXT);let n;
+  while((n=w.nextNode())){
+   if(!n.parentElement||/^(SCRIPT|STYLE|NOSCRIPT)$/.test(n.parentElement.tagName))continue;
+   if(/демо/i.test(n.textContent)){let cleaned=replaceText(n.textContent);if(cleaned!==n.textContent)n.textContent=cleaned;}
+  }
+ }catch(e){}
+}
+function patchApp(){
+ try{
+  const w=frame.contentWindow;
+  if(typeof w.showToast==="function"&&!w.__almasToastPatched){
+   const old=w.showToast;
+   w.showToast=function(msg){return old.call(w,replaceText(msg));};
+   w.__almasToastPatched=true;
+  }
+  applyLabels();
+  let scheduled=false;
+  const obs=new MutationObserver(function(){
+   if(scheduled)return;scheduled=true;
+   setTimeout(function(){scheduled=false;applyLabels();},100);
+  });
+  obs.observe(frame.contentDocument.body,{subtree:true,childList:true,characterData:true});
+ }catch(e){}
+}
+frame.addEventListener("load",patchApp);
+function enter(){
+ unlocked=true;buf="";draw();
+ lock.style.display="none";frame.style.display="block";
+ frame.src="app.html";el("app-note").style.display="block";
+}
+async function accept(){
+ if(busy||unlocked||buf.length!==4)return;
+ let code=buf;buf="";draw();busy=true;
+ try{
+  if(mode==="new"){first=code;mode="confirm";render();}
+  else if(mode==="confirm"){
+   if(code!==first){first="";mode="new";render();info("Кодтар сәйкес келмеді. Қайта орнатыңыз.",true);}
+   else{
+    let salt=b64(bytes(16));
+    let obj={salt,hash:await digest(code,salt),createdAt:Date.now()};
+    localStorage.setItem(KEY,JSON.stringify(obj));saved=obj;mode="unlock";enter();
+   }
+  }else{
+   const wait=getWait();
+   if(wait>0){info("Қайталап көру үшін "+Math.ceil(wait/1000)+" секунд күтіңіз.",true);}
+   else{
+    const derived=await digest(code,saved.salt);
+    if(equal(derived,saved.hash)){localStorage.removeItem(LOCK);enter();}
+    else{
+     let v={fails:0};try{v=JSON.parse(localStorage.getItem(LOCK)||"{}");}catch(e){}
+     let fails=(Number(v.fails)||0)+1;
+     let until=fails>=5?Date.now()+60000:0;
+     localStorage.setItem(LOCK,JSON.stringify({fails:fails>=5?0:fails,until}));
+     info(until?"Көп қате енгізілді. 60 секундтан кейін қайталаңыз.":"Код қате. Қайталап көріңіз.",true);
+    }
+   }
+  }
+ }catch(e){info("PIN сақтау мүмкін емес. HTTPS және браузер параметрлерін тексеріңіз.",true);}
+ finally{busy=false;}
+}
+function digit(v){if(busy||unlocked)return;if(getWait()>0){info("Код уақытша бұғатталған. Кейін қайталаңыз.",true);return;}if(buf.length>=4)return;buf+=v;draw();if(buf.length===4)setTimeout(accept,130);}
+document.querySelectorAll("[data-digit]").forEach(b=>b.addEventListener("click",()=>digit(b.dataset.digit)));
+el("backspace").addEventListener("click",()=>{if(busy)return;buf=buf.slice(0,-1);draw();});
+el("biometric").addEventListener("click",()=>info("Биометриялық кіру үшін бөлек қауіпсіз серверлік passkey жүйесі қажет. Қазір PIN қолданыңыз.",true));
+document.addEventListener("keydown",e=>{
+ if(unlocked)return;
+ if(/^[0-9]$/.test(e.key)){e.preventDefault();digit(e.key);}
+ if(e.key==="Backspace"){e.preventDefault();buf=buf.slice(0,-1);draw();}
+});
+render();
+setTimeout(()=>{lock.style.display="block";splash.style.opacity="0";setTimeout(()=>splash.remove(),320);},900);
+})();
+</script>
+
+<!-- ЕРКЕ ҚЫЗ · SPOTIFY PLAYER: standalone, does not alter the app or its logic -->
+<style>
+#erke-music-btn{position:fixed;right:14px;bottom:calc(92px + env(safe-area-inset-bottom));width:44px;height:44px;border:0;border-radius:50%;background:#10182f;color:#fff;box-shadow:0 3px 12px #0003;z-index:20;display:grid;place-items:center;font-size:25px;cursor:pointer}
+#erke-music-panel{position:fixed;right:14px;bottom:calc(145px + env(safe-area-inset-bottom));width:min(360px,calc(100vw - 28px));max-height:calc(100dvh - 165px);overflow-y:auto;border-radius:14px;background:#161616;box-shadow:0 6px 24px #0004;z-index:20;display:none;padding:7px}
+#erke-music-panel[data-open="yes"]{display:block}
+#erke-music-panel iframe{display:block;width:100%;height:min(352px,calc(100dvh - 230px));min-height:152px;border:0;border-radius:12px}
+#erke-music-full{display:block;text-align:center;margin:9px 4px 3px;padding:10px 8px;background:#1ed760;color:#071709;border-radius:999px;font-size:13px;font-weight:800;text-decoration:none}
+#erke-music-panel .erke-help{color:#ddd;font-size:11px;text-align:center;line-height:1.5;margin:8px 3px 3px}
+#erke-voice-btn{position:fixed;right:68px;bottom:calc(92px + env(safe-area-inset-bottom));width:44px;height:44px;border:0;border-radius:50%;background:#f0f1f6;color:#07102d;box-shadow:0 3px 12px #0003;z-index:20;display:grid;place-items:center;font-size:22px;cursor:pointer}
+#erke-voice-status:not([hidden]){position:fixed;bottom:calc(148px + env(safe-area-inset-bottom));right:14px;max-width:min(340px,calc(100vw - 28px));background:#131a31;color:white;font-size:12px;line-height:1.45;padding:10px 13px;border-radius:12px;box-shadow:0 3px 15px #0003;z-index:25}
+</style>
+<button id="erke-music-btn" type="button" aria-label="Ерке қыз музыкасын ашу" aria-expanded="false" title="Ерке қыз · Spotify">♫</button>
+<!-- Микрофонға рұқсат тек пайдаланушы батырманы басқанда сұралады; дыбыс сақталмайды -->
+<button id="erke-voice-btn" type="button" aria-label="Дауыс үшін микрофонға рұқсат сұрау" title="Дауыс үшін микрофон рұқсаты">🎙</button>
+<div id="erke-voice-status" role="status" aria-live="polite" hidden></div>
+<div id="erke-music-panel" role="region" aria-label="Ерке қыз · Spotify" data-open="no"></div>
+<script>
+(function(){
+ var btn=document.getElementById('erke-music-btn');
+ var panel=document.getElementById('erke-music-panel');
+ btn.addEventListener('click',function(){
+   var opening=panel.getAttribute('data-open')!=='yes';
+   if(opening&&!panel.firstChild){
+     var player=document.createElement('iframe');
+     player.title='Spotify: Ерке қыз — Жігіттер кв';
+     player.src='https://open.spotify.com/embed/track/2ESu2FxfSzFLSXSFEzCe1w';
+     player.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+     player.loading='lazy';
+     player.referrerPolicy='strict-origin-when-cross-origin';
+     panel.appendChild(player);
+     var openFull=document.createElement('a');
+     openFull.id='erke-music-full';
+     openFull.href='https://open.spotify.com/track/2ESu2FxfSzFLSXSFEzCe1w?utm_source=openai&utm_medium=chatgpt&go=1&nap_web=1&request_id=bc723c8f-a10b-42d4-baa3-e25caf540cde';
+     openFull.target='_blank';
+     openFull.rel='noopener noreferrer';
+     openFull.textContent='♫ Толық әнді Spotify-да тыңдау ↗';
+     panel.appendChild(openFull);
+     var help=document.createElement('p');
+     help.className='erke-help';
+     help.textContent='Толық ойнату Spotify аккаунты мен браузерге байланысты. Сайт әнді жүктемейді.';
+     panel.appendChild(help);
+   }
+   panel.setAttribute('data-open',opening?'yes':'no');
+   btn.setAttribute('aria-expanded',opening?'true':'false');
+   btn.setAttribute('aria-label',opening?'Музыка ойнатқышын жабу':'Ерке қыз музыкасын ашу');
+ });
+})();
+</script>
+<script>
+(function(){
+ "use strict";
+ const button=document.getElementById("erke-voice-btn");
+ const status=document.getElementById("erke-voice-status");
+ let timer=null;
+ function show(message){
+   status.textContent=message;
+   status.hidden=false;
+   clearTimeout(timer);
+   timer=setTimeout(function(){status.hidden=true;},4500);
+ }
+ button.addEventListener("click",async function(){
+   if(!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+     show("Микрофонға рұқсат беру бұл браузерде қолжетімсіз. HTTPS қажет.");
+     return;
+   }
+   button.disabled=true;
+   try{
+     // Тек рұқсат сұрау: жазу да, серверге жіберу де жоқ.
+     const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+     stream.getTracks().forEach(function(track){track.stop();});
+     show("Микрофон рұқсаты берілді. Дауыс жазылмайды және жіберілмейді.");
+   }catch(error){
+     show(error && (error.name==="NotAllowedError" || error.name==="PermissionDeniedError")
+       ?"Микрофонға рұқсат берілмеді. Браузер параметрлерінен өзгерте аласыз."
+       :"Микрофон қолжетімсіз немесе рұқсат сұрау сәтсіз аяқталды.");
+   }finally{button.disabled=false;}
+ });
+})();
+</script>
+</body>
+</html>
