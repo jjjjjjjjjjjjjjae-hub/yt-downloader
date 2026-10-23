@@ -1518,6 +1518,64 @@ body{display:flex!important;align-items:stretch!important;justify-content:center
 .trial-ticket-groups[hidden]{display:none!important;}
 
 </style>
+<style id="menu-reference-layout">
+#page-menu{position:absolute;inset:0;z-index:180;display:flex;flex-direction:column;background:#fafafa;color:#10162d;container-type:inline-size;font-family:Inter,Arial,sans-serif;}
+#page-menu.hidden{display:none!important;}
+#page-menu.is-home{background:#f3f3fb;}
+.menu-page-header{display:flex;align-items:center;flex-shrink:0;height:13.3cqw;padding:0 3.8cqw;gap:7cqw;background:#fff;}
+.menu-page-header[hidden]{display:none;}
+.menu-page-header h2{margin:0;font-size:4.15cqw;font-weight:700;line-height:1.2;}
+.menu-back{border:0;padding:0;background:transparent;color:#171d25;width:5.7cqw;height:8cqw;display:grid;place-items:center;}
+.menu-back svg{width:5.4cqw;height:5.4cqw;}
+.menu-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:5.2cqw 3.8cqw 7cqw;scrollbar-width:none;}
+.menu-content::-webkit-scrollbar{display:none;}
+#page-menu.is-home .menu-content{padding-top:5.2cqw;padding-bottom:8cqw;}
+.menu-welcome{display:flex;align-items:center;gap:3.8cqw;background:white;border-radius:3.8cqw;min-height:20cqw;padding:3.5cqw 2.8cqw;margin-bottom:5cqw;}
+.menu-onay-logo{display:block;flex-shrink:0;width:12.5cqw;height:12.5cqw;}
+.menu-welcome strong{display:block;font-size:3.4cqw;font-weight:500;margin-bottom:1.4cqw;color:#111;}
+.menu-phone{display:flex;align-items:center;gap:1.5cqw;font-size:2.5cqw;color:#282b35;white-space:nowrap;}
+.menu-verified{width:3cqw;height:3cqw;}
+.menu-group{background:#fff;border-radius:3.8cqw;overflow:hidden;margin:0 0 5cqw;}
+.menu-row{position:relative;display:flex;align-items:center;gap:2.5cqw;width:100%;min-height:14.05cqw;padding:2cqw 2.7cqw 2cqw 3cqw;border:0;background:#fff;color:#171b23;text-align:left;text-decoration:none;font:400 3.2cqw Inter,Arial,sans-serif;}
+.menu-row+.menu-row::before{content:'';position:absolute;top:0;left:12cqw;right:.3cqw;height:1px;background:#dedfe4;}
+.menu-row-icon{display:grid;place-items:center;width:6.4cqw;height:6.4cqw;border:1px solid #f1f1f5;border-radius:1.1cqw;flex-shrink:0;color:#ffc400;}
+.menu-row-icon svg{width:4.9cqw;height:4.9cqw;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;fill:none;}
+.menu-row-label{flex:1;min-width:0;line-height:1.3;}
+.menu-row-value{color:#8d8e98;font-size:2.7cqw;white-space:nowrap;}
+.menu-chevron{width:2.65cqw;height:4cqw;flex-shrink:0;margin-left:.2cqw;color:#0c142c;}
+.menu-row.plain{min-height:11.1cqw;padding:2cqw 2.6cqw;font-size:3.2cqw;}
+.menu-row.plain+.menu-row::before{left:2.6cqw;right:.3cqw;}
+.menu-delete-icon{width:4.7cqw;height:4.7cqw;color:#10162d;stroke-width:1.8;fill:none;}
+.menu-security-single{margin-bottom:5.2cqw;}
+.menu-switch{border:0;flex-shrink:0;width:9.4cqw;height:4.8cqw;background:#ffbf00;border-radius:99px;padding:.5cqw;display:flex;justify-content:flex-end;align-items:center;}
+.menu-switch::after{content:'';display:block;width:3.8cqw;height:3.8cqw;border-radius:50%;background:white;box-shadow:0 1px 2px #0001;}
+.menu-switch[aria-checked=false]{background:#d9dae1;justify-content:flex-start;}
+.menu-switch:focus-visible,.menu-row:focus-visible,.menu-back:focus-visible{outline:2px solid #d7a900;outline-offset:-2px;}
+.menu-preview-caption{text-align:center;font-size:2.15cqw;color:#8f919c;margin:2cqw 0;}
+.menu-about{padding-top:48.6cqw;text-align:center;}
+.menu-about-logo{width:30.8cqw;height:30.8cqw;display:block;margin:0 auto 5.7cqw;}
+.menu-about-version,.menu-about-device{font-size:2.5cqw;color:#8a8b96;margin:0 0 1.8cqw;}
+.menu-about-links{margin-top:8cqw;text-align:left;}
+.menu-social-title{font-size:2.8cqw;color:#8b8c94;margin:15cqw 0 3cqw;}
+.menu-socials{display:flex;justify-content:center;gap:5.6cqw;}
+.menu-social{width:9.8cqw;height:9.8cqw;border:0;padding:0;background:none;display:block;border-radius:50%;}
+.menu-social svg{width:100%;height:100%;display:block;}
+#page-menu .menu-bottom-bar{position:relative!important;inset:auto!important;z-index:2;flex:0 0 auto;height:14cqw;min-height:14cqw;padding:2.5cqw 2cqw 1cqw;box-shadow:0 -1cqw 5cqw #10162d06;border-radius:5cqw 5cqw 0 0;display:flex;align-items:center;justify-content:space-around;background:white;}
+#page-menu .menu-bottom-bar[hidden]{display:none!important;}
+#page-menu .onay-bottom-action{font-size:2.4cqw;gap:1.1cqw;flex:1;height:10.4cqw!important;min-height:0;padding:0;}
+#page-menu .onay-bottom-action>svg{width:5.7cqw;height:5.7cqw;}
+#page-menu .onay-nav-card-icon{width:6cqw;height:6cqw;background:transparent;padding:0;}
+#page-menu .onay-nav-card-icon svg{width:6cqw;height:6cqw;}
+#page-menu .onay-menu-avatar{display:grid;place-items:center;width:6.8cqw;height:6.8cqw;padding:1.2cqw;border-radius:50%;background:#ffdc00;}
+#page-menu .onay-menu-avatar svg{width:100%;height:100%;}
+#page-menu .onay-nav-qr-holder{width:16cqw;flex:0 0 16cqw;}
+#page-menu .onay-nav-qr{width:14.1cqw!important;height:14.1cqw!important;min-width:0;min-height:0;top:-6.8cqw;box-shadow:0 2cqw 5cqw #ffc00050;}
+#page-menu .onay-nav-qr svg{width:7.5cqw;height:7.5cqw;}
+.menu-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+#page-menu.is-home .menu-preview-caption{text-align:left;margin-left:2cqw;}
+
+</style>
 </head>
 <body class="bg-slate-900 flex justify-center items-center min-h-screen p-0 sm:p-4">
   <div id="onay-app-root" class="w-full max-w-[410px] bg-[#f8f9fa] h-[100dvh] sm:h-[844px] sm:rounded-[40px] shadow-2xl relative flex flex-col overflow-hidden border-0 sm:border-8 sm:border-slate-800">
@@ -1576,7 +1634,7 @@ body{display:flex!important;align-items:stretch!important;justify-content:center
         <button type="button" onclick="setCardsTab('my')" class="onay-bottom-action" aria-label="Карталар"><span class="onay-nav-card-icon"><svg class="nav-icon-cards" viewBox="0 0 36 36" fill="none" aria-hidden="true"><g transform="rotate(-18 18 18)"><path d="M7 11H5v19h15v-2H7V11Z" fill="#0a1231"/><rect x="10" y="6" width="17" height="23" rx="2" fill="#0a1231"/><path d="M14 17h10m-4-4 4 4-4 4" stroke="#ffdb00" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg></span><span>Карталар</span></button>
         <div class="onay-nav-qr-holder"><button type="button" onclick="openQrPage('scan')" class="qr-emblem onay-nav-qr" aria-label="QR пайдалану"><svg class="nav-icon-qr" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 2h10v10H2V2Zm2.5 2.5v5h5v-5h-5ZM20 2h10v10H20V2Zm2.5 2.5v5h5v-5h-5ZM2 20h10v10H2V20Zm2.5 2.5v5h5v-5h-5Z"/><path d="M6 6h3v3H6zM24 6h3v3h-3zM6 24h3v3H6zM14 2h3v5h-3zM14 9h3v6h-3zM2 14h5v3H2zM9 14h3v3H9zM17 14h4v3h-4zM23 14h7v3h-7zM14 18h3v5h-3zM19 19h4v4h-4zM25 18h3v5h-3zM28 22h2v8h-2zM18 25h3v5h-3zM23 25h3v3h-3zM14 27h3v3h-3zM23 28h7v2h-7z"/></svg></button></div>
         <button type="button" onclick="showToast('Life бөлімі')" class="onay-bottom-action" aria-label="Life"><svg class="onay-heart nav-icon-life" viewBox="0 0 32 32" fill="#20cc30" aria-hidden="true"><path d="M16 28.6 4.1 18.3C-1 13.9.1 5.2 6.4 3.9c4.2-.9 7 1.4 9.6 4.6 2.6-3.2 5.4-5.5 9.6-4.6 6.3 1.3 7.4 10 2.3 14.4L16 28.6Z"/></svg><span>Life</span></button>
-        <button type="button" onclick="showToast('Мәзір')" class="onay-bottom-action" aria-label="Мәзір"><span class="onay-menu-avatar"><svg class="nav-icon-menu" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="#0a1231"/><circle cx="16" cy="11" r="4.1" fill="white"/><path d="M7.5 25.5c.7-4.4 4-6.9 8.5-6.9s7.8 2.5 8.5 6.9c-2.3 1.5-5.1 2.2-8.5 2.2s-6.2-.7-8.5-2.2Z" fill="white"/></svg></span><span>Мәзір</span></button>
+        <button type="button" onclick="openMenuPage()" class="onay-bottom-action" aria-label="Мәзір"><span class="onay-menu-avatar"><svg class="nav-icon-menu" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="#0a1231"/><circle cx="16" cy="11" r="4.1" fill="white"/><path d="M7.5 25.5c.7-4.4 4-6.9 8.5-6.9s7.8 2.5 8.5 6.9c-2.3 1.5-5.1 2.2-8.5 2.2s-6.2-.7-8.5-2.2Z" fill="white"/></svg></span><span>Мәзір</span></button>
       </div>
           </div>
 
@@ -1634,7 +1692,7 @@ body{display:flex!important;align-items:stretch!important;justify-content:center
         <button type="button" class="route-bottom-button" onclick="closeRoutesPage()"><svg class="nav-icon-cards" viewBox="0 0 36 36" fill="none" aria-hidden="true"><g transform="rotate(-18 18 18)"><path d="M7 11H5v19h15v-2H7V11Z" fill="#0a1231"/><rect x="10" y="6" width="17" height="23" rx="2" fill="#0a1231"/><path d="M14 17h10m-4-4 4 4-4 4" stroke="#ffdb00" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>Карталар</button>
         <div class="route-qr-holder"><button type="button" class="route-qr-button" aria-label="QR пайдалану" onclick="openQrFromRoutes()"><svg class="nav-icon-qr" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 2h10v10H2V2Zm2.5 2.5v5h5v-5h-5ZM20 2h10v10H20V2Zm2.5 2.5v5h5v-5h-5ZM2 20h10v10H2V20Zm2.5 2.5v5h5v-5h-5Z"/><path d="M6 6h3v3H6zM24 6h3v3h-3zM6 24h3v3H6zM14 2h3v5h-3zM14 9h3v6h-3zM2 14h5v3H2zM9 14h3v3H9zM17 14h4v3h-4zM23 14h7v3h-7zM14 18h3v5h-3zM19 19h4v4h-4zM25 18h3v5h-3zM28 22h2v8h-2zM18 25h3v5h-3zM23 25h3v3h-3zM14 27h3v3h-3zM23 28h7v2h-7z"/></svg></button></div>
         <button type="button" class="route-bottom-button" onclick="showToast('Life бөлімі')"><svg class="onay-heart nav-icon-life" viewBox="0 0 32 32" fill="#20cc30" aria-hidden="true"><path d="M16 28.6 4.1 18.3C-1 13.9.1 5.2 6.4 3.9c4.2-.9 7 1.4 9.6 4.6 2.6-3.2 5.4-5.5 9.6-4.6 6.3 1.3 7.4 10 2.3 14.4L16 28.6Z"/></svg>Life</button>
-        <button type="button" class="route-bottom-button" onclick="showToast('Мәзір')"><svg class="nav-icon-menu" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="#0a1231"/><circle cx="16" cy="11" r="4.1" fill="white"/><path d="M7.5 25.5c.7-4.4 4-6.9 8.5-6.9s7.8 2.5 8.5 6.9c-2.3 1.5-5.1 2.2-8.5 2.2s-6.2-.7-8.5-2.2Z" fill="white"/></svg>Мәзір</button>
+        <button type="button" class="route-bottom-button" onclick="openMenuPage()"><svg class="nav-icon-menu" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="#0a1231"/><circle cx="16" cy="11" r="4.1" fill="white"/><path d="M7.5 25.5c.7-4.4 4-6.9 8.5-6.9s7.8 2.5 8.5 6.9c-2.3 1.5-5.1 2.2-8.5 2.2s-6.2-.7-8.5-2.2Z" fill="white"/></svg>Мәзір</button>
       </footer>
       <div id="route-detail-overlay" class="route-detail-overlay" hidden onclick="hideRouteDetail()">
         <section class="route-detail-sheet" role="dialog" aria-modal="true" aria-labelledby="route-detail-title" onclick="event.stopPropagation()">
@@ -1858,6 +1916,7 @@ body{display:flex!important;align-items:stretch!important;justify-content:center
     </section>
 
 
+<section id="page-menu" class="hidden is-home" aria-label="Мәзір"><header id="menu-page-header" class="menu-page-header" hidden><button id="menu-page-back" class="menu-back" type="button" onclick="menuBack()" aria-label="Артқа"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12H4m0 0 7-7m-7 7 7 7" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></button><h2 id="menu-page-title"></h2></header><div id="menu-content" class="menu-content" tabindex="-1"></div></section>
 <section id="page-trial-confirm" class="trial-page hidden" aria-label="Сынақ төлемін растау">
 <header class="trial-header"><button type="button" id="trial-confirm-back" class="trial-back" onclick="closeTrialConfirmation()" aria-label="Артқа"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12H4m0 0 7-7m-7 7 7 7" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></button><h2>Төлемді растау</h2></header>
 <div class="trial-badge">СЫНАҚ НҰСҚА · НАҚТЫ ТӨЛЕМ ЖАСАЛМАЙДЫ</div>
@@ -15917,9 +15976,68 @@ function findAlignmentPattern(matrix, alignmentPatternQuads, topRight, topLeft, 
     syncTrialBalances();renderTrialTickets();renderTrialHistory();renderTrialNotifications();renderTrialHolder();
 
 
+    const menuChevron='<svg class="menu-chevron" viewBox="0 0 12 20" fill="none" aria-hidden="true"><path d="m3 3 7 7-7 7" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const menuLogo=(square=false)=>`<svg class="${square?'menu-about-logo':'menu-onay-logo'}" viewBox="0 0 100 100" aria-hidden="true">${square?'<rect width="100" height="100" rx="21" fill="#ffdb00"/>':'<circle cx="50" cy="50" r="50" fill="#ffdb00"/>'}<circle cx="50" cy="50" r="31.5" fill="#111722"/><path d="M35 50h28m-12-12 13 12-13 12" stroke="#ffdb00" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const menuIcons={
+      profile:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="9" r="3"/><path d="M6 19c.6-5 11.4-5 12 0"/>',
+      city:'<path d="M12 22S4 14 4 8a8 8 0 0 1 16 0c0 6-8 14-8 14Z"/><circle cx="12" cy="8" r="3"/>',
+      security:'<path d="m12 2 9 3v6c0 6-5 9-9 11-4-2-9-5-9-11V5l9-3Z"/><path d="m8 11 3 3 5-6"/>',
+      settings:'<path d="m10 2-.6 3-2 .8L4.8 4l-2 3.5 2.2 2-.3 2.5L2 13l1 4 3-.3 1.7 2L8 22h4l.7-3 2.2-.8 2.5 1.8 2.2-3.5-2.2-2 .3-2.5 2.7-1-1-4-3 .3-1.7-2L14 2h-4Z"/><circle cx="11" cy="12" r="3.3"/>',
+      places:'<path d="m2 3 7 3 7-3 6 3v12l-6-3-7 3-7-3V3Zm7 3v12m7-15v9"/><path d="M21 17c0 2-3 5-3 5s-3-3-3-5a3 3 0 0 1 6 0Z"/>',
+      discount:'<path d="m12 2 2.5 2 3-.3.8 3 2.7 1.5-1 3 1 3-2.7 1.5-.8 3-3-.3-2.5 2-2.5-2-3 .3-.8-3L3 14l1-3-1-3 2.7-1.5.8-3 3 .3L12 2Z"/><path d="m8 16 8-9"/><circle cx="8.5" cy="8" r="1.7"/><circle cx="15.5" cy="15" r="1.7"/>',
+      help:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="m5 5 4 4m6 6 4 4M19 5l-4 4m-6 6-4 4"/>',
+      info:'<circle cx="12" cy="12" r="9"/><path d="M12 10v7m0-11v.2"/>',
+      exit:'<path d="M14 4V2H3v20h11v-2M7 4v16m3-8h12m-4-4 4 4-4 4"/>'
+    };
+    function menuIcon(name){return `<span class="menu-row-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${menuIcons[name]||menuIcons.info}</svg></span>`;}
+    function menuRow(label,action,{icon='',value='',plain=false,href='',end='arrow'}={}){
+      const tag=href?'a':'button',attrs=href?`href="${href}"${href.startsWith('tel:')?'':' target="_blank" rel="noopener noreferrer"'}`:`type="button" onclick="${action}"`;
+      const ending=end==='trash'?'<svg class="menu-delete-icon" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M6 6l1 16h10l1-16M10 10v8m4-8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>':menuChevron;
+      return `<${tag} class="menu-row${plain?' plain':''}" ${attrs}>${icon?menuIcon(icon):''}<span class="menu-row-label">${label}</span>${value?`<span class="menu-row-value">${value}</span>`:''}${ending}</${tag}>`;
+    }
+    let menuCurrentView='home',menuReturnFocus=null,menuPriorInert=[],menuFingerprintPreview=true;
+    const menuViewTitles={home:'Мәзір',profile:'Менің профилім',security:'Қауіпсіздік',settings:'Баптау',help:'Көмек',about:'Қолданба туралы'};
+    function menuUnavailable(){showToast('Бұл әрекет ресми ONAY! қолданбасында орындалады');}
+    function menuDeviceName(){const ua=navigator.userAgent,android=ua.match(/Android\s+([\d.]+)/i);return android?'Android '+android[1]:/Windows/i.test(ua)?'Windows':/iPhone|iPad/i.test(ua)?'iOS':/Macintosh/i.test(ua)?'macOS':/Linux/i.test(ua)?'Linux':'Веб-браузер';}
+    function menuViewMarkup(key){
+      if(key==='home')return `<h2 class="menu-sr-only">Мәзір</h2><div class="menu-welcome">${menuLogo()}<div><strong>Қош келдіңіз!</strong><span class="menu-phone">+7 702 --- -- 60<svg class="menu-verified" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 1 3 2 3.5.4L20 7l3 2-1 3 1 3-3 2-1.5 3.6L15 21l-3 2-3-2-3.5-.4L4 17l-3-2 1-3-1-3 3-2 1.5-3.6L9 3l3-2Z" fill="#41a4eb"/><path d="m7.5 12 3 3 6-6" stroke="white" stroke-width="2" fill="none"/></svg></span></div></div>
+      <div class="menu-group">${menuRow('Менің профилім',"menuShowView('profile')",{icon:'profile'})}${menuRow('Менің қалам',"showToast('Қала — Алматы')",{icon:'city',value:'Алматы'})}${menuRow('Қауіпсіздік',"menuShowView('security')",{icon:'security'})}${menuRow('Қолданба баптаулары',"menuShowView('settings')",{icon:'settings'})}${menuRow('Қызмет көрсету орындары','',{icon:'places',href:'https://onay.kz/?page_id=34'})}</div>
+      <div class="menu-group">${menuRow('Жеңілдіктер','',{icon:'discount',href:'https://onay.kz/'})}</div>
+      <div class="menu-group">${menuRow('Көмек',"menuShowView('help')",{icon:'help'})}${menuRow('Қолданба туралы',"menuShowView('about')",{icon:'info',value:'3.6.2'})}</div>
+      <div class="menu-group">${menuRow('Шығу',"menuNavigate('cards')",{icon:'exit'})}</div><p class="menu-preview-caption">Сынақ интерфейсі</p>`;
+      if(key==='profile')return `<div class="menu-group">${menuRow('Телефон нөмірі','menuUnavailable()',{plain:true,value:'+7 702 --- -- 60'})}${menuRow('E-mail','menuUnavailable()',{plain:true})}${menuRow('Құпия сөзді өзгерту','menuUnavailable()',{plain:true})}</div><div class="menu-group">${menuRow('Тіркелгіні жою',"showToast('Бұл сайтта серверлік тіркелгі жоқ')",{plain:true,end:'trash'})}</div>`;
+      if(key==='security')return `<div class="menu-group menu-security-single"><div class="menu-row plain"><span class="menu-row-label">Touch ID/Fingerprint</span><button id="menu-fingerprint-preview" class="menu-switch" type="button" role="switch" aria-label="Touch ID/Fingerprint интерфейс үлгісі" aria-checked="${menuFingerprintPreview}" onclick="toggleMenuFingerprintPreview()"></button></div></div><div class="menu-group">${menuRow('Рұқсаттама кодын өзгерту','menuUnavailable()',{plain:true})}${menuRow('Кодтық сөз','menuUnavailable()',{plain:true})}${menuRow('Жоғары рұқсат','menuUnavailable()',{plain:true})}</div>`;
+      if(key==='settings')return `<div class="menu-group">${menuRow('Хабарламалар',"menuNavigate('notifications')",{plain:true})}${menuRow('Интерфейс тілі',"showToast('Интерфейс тілі — Қазақша')",{plain:true,value:'Қазақша'})}</div>`;
+      if(key==='help')return `<div class="menu-group">${menuRow('Call-орталығы','',{plain:true,href:'tel:+77273970191'})}${menuRow('Қызмет көрсету орталықтары','',{plain:true,href:'https://onay.kz/?page_id=34'})}</div>`;
+      if(key==='about')return `<div class="menu-about">${menuLogo(true)}<p class="menu-about-version">Қолданба нұсқасы 3.6.2</p><p class="menu-about-device">Құрылғы ${trialEscape(menuDeviceName())}</p><div class="menu-group menu-about-links">${menuRow('Пайдаланушы келісімі','menuUnavailable()',{plain:true})}${menuRow('Құпиялық саясаты','',{plain:true,href:'https://onay.kz/privacy-politics-ru.html'})}${menuRow('Қолданбаны бағалау','',{plain:true,href:'https://play.google.com/store/apps/details?gl=KZ&amp;hl=kk&amp;id=kz.onay'})}</div><p class="menu-social-title">Жаңалықтар мен қажетті ақпарат:</p><div class="menu-socials"><a class="menu-social" href="https://onay.kz/" target="_blank" rel="noopener noreferrer" aria-label="ONAY ресми сайты">${menuLogo()}</a><button class="menu-social" type="button" onclick="menuUnavailable()" aria-label="Telegram"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="30" fill="#29abe2"/><path d="m12 28 34-13-7 33-12-10-7 6 2-13 17-10-20 14Z" fill="white"/></svg></button><a class="menu-social" href="https://www.instagram.com/onay.kz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 60 60" aria-hidden="true"><defs><linearGradient id="menu-instagram-gradient" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#ffcd43"/><stop offset=".45" stop-color="#f04464"/><stop offset="1" stop-color="#8d3cce"/></linearGradient></defs><circle cx="30" cy="30" r="30" fill="url(#menu-instagram-gradient)"/><rect x="16" y="16" width="28" height="28" rx="8" fill="none" stroke="white" stroke-width="3"/><circle cx="30" cy="30" r="7" fill="none" stroke="white" stroke-width="3"/><circle cx="39" cy="21" r="2" fill="white"/></svg></a></div><p class="menu-preview-caption" style="margin-top:5cqw">Сынақ интерфейсі</p></div>`;
+      return '';
+    }
+    function menuShowView(key){
+      if(!Object.prototype.hasOwnProperty.call(menuViewTitles,key))return;
+      menuCurrentView=key;const home=key==='home';el('page-menu').classList.toggle('is-home',home);el('menu-page-header').hidden=home;el('menu-page-title').textContent=menuViewTitles[key];el('menu-page-title').classList.toggle('menu-sr-only',key==='about');el('menu-bottom-bar').hidden=!home;el('menu-content').innerHTML=menuViewMarkup(key);el('menu-content').scrollTop=0;el('page-menu').setAttribute('aria-label',menuViewTitles[key]||'Қолданба туралы');if(!home)el('menu-page-back').focus({preventScroll:true});
+    }
+    function openMenuPage(){
+      menuReturnFocus=document.activeElement;menuPriorInert=['page-main','page-routes'].map(id=>({node:el(id),prior:el(id).inert}));menuPriorInert.forEach(x=>x.node.inert=true);el('page-menu').classList.remove('hidden');menuShowView('home');el('menu-content').focus({preventScroll:true});
+    }
+    function closeMenuPage(restore=true){el('page-menu').classList.add('hidden');menuPriorInert.forEach(x=>x.node.inert=x.prior);menuPriorInert=[];if(restore)menuReturnFocus?.focus({preventScroll:true});}
+    function menuBack(){if(menuCurrentView!=='home')menuShowView('home');else closeMenuPage();}
+    function toggleMenuFingerprintPreview(){menuFingerprintPreview=!menuFingerprintPreview;el('menu-fingerprint-preview').setAttribute('aria-checked',String(menuFingerprintPreview));showToast('Бұл — саусақ ізі қосқышының интерфейс үлгісі');}
+    function menuNavigate(destination){
+      closeMenuPage(false);closeRoutesPage();
+      if(destination==='routes')openRoutesPage();else if(destination==='qr')openQrPage('scan');else if(destination==='notifications')openNotifications();else{setCardsTab('my');if(destination==='life')showToast('Life бөлімі');}
+    }
+    function buildMenuNavigation(){
+      const bar=document.querySelector('#page-main .onay-bottom-bar').cloneNode(true);bar.id='menu-bottom-bar';bar.classList.add('menu-bottom-bar');
+      const actions={'Бағыттар':'routes','Карталар':'cards','QR пайдалану':'qr','Life':'life','Мәзір':'home'};
+      bar.querySelectorAll('button[aria-label]').forEach(button=>{const action=actions[button.getAttribute('aria-label')];button.setAttribute('onclick',action==='home'?"menuShowView('home')":`menuNavigate('${action}')`);});
+      bar.querySelectorAll('.onay-menu-avatar [fill="white"]').forEach(x=>x.setAttribute('fill','#ffdb00'));bar.querySelectorAll('.onay-nav-card-icon [stroke="#ffdb00"]').forEach(x=>x.setAttribute('stroke','white'));el('page-menu').append(bar);menuShowView('home');
+    }
+    buildMenuNavigation();
+
     // Android қайту батырмасы немесе браузер Escape.
     document.addEventListener('keydown', e => {
       if(e.key === 'Escape' || (e.key === 'Backspace' && !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))) {
+        if(!el('page-menu').classList.contains('hidden')){e.preventDefault();menuBack();return;}
         if(!el('trial-ticket-overlay').hidden){e.preventDefault();closeTrialTicket();return;}
         if(!el('page-trial-confirm').classList.contains('hidden')){e.preventDefault();closeTrialConfirmation();return;}
         if(!el('page-trial-thread').classList.contains('hidden')){e.preventDefault();closeTrialThread();return;}
