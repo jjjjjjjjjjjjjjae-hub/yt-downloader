@@ -1645,9 +1645,62 @@ body{display:flex!important;align-items:stretch!important;justify-content:center
 .onay-ride-count[data-balance-status="normal"],.trial-card-rides[data-balance-status="normal"]{color:#101a34;}
 .onay-ride-count[data-balance-status="low"],.trial-card-rides[data-balance-status="low"]{color:#c42d46;}
 </style>
+<style id="app-pin-layout">
+#app-pin-gate{position:absolute;inset:0;z-index:1000;background:#fff;color:#090f2d;container-type:inline-size;isolation:isolate;}
+#app-pin-gate[hidden],#app-pin-gate [hidden]{display:none!important;}
+#onay-app-root.app-pin-locked>:not(#app-pin-gate){visibility:hidden!important;pointer-events:none!important;}
+.app-pin-splash{position:absolute;inset:0;background:#ffdd00;display:grid;place-items:center;}
+.app-pin-splash svg{display:block;width:31.2cqw;height:31.2cqw;}
+.app-pin-screen{position:absolute;inset:0;background:#fff;outline:none;}
+.app-pin-logo{position:absolute;top:11.3%;left:50%;transform:translateX(-50%);width:19cqw;height:19cqw;}
+.app-pin-logo svg{display:block;width:100%;height:100%;}
+.app-pin-label{position:absolute;top:23.5%;left:0;width:100%;padding:0 6cqw;margin:0;text-align:center;font:500 3.6cqw/1.25 Inter,Arial,sans-serif;color:#777b88;}
+.app-pin-dots{position:absolute;top:28.8%;left:50%;transform:translateX(-50%);display:flex;gap:7.6cqw;}
+.app-pin-dot{display:block;width:3.5cqw;height:3.5cqw;border:.3cqw solid #c8c9d0;border-radius:50%;background:#fff;}
+.app-pin-dot.filled{border-color:#ffcf00;background:#ffcf00;}
+.app-pin-dots.is-error .app-pin-dot{border-color:#d64b58;background:#d64b58;}
+.app-pin-dots.is-error{animation:app-pin-shake .25s linear 2;}
+.app-pin-error{position:absolute;top:34%;left:5cqw;right:5cqw;margin:0;text-align:center;min-height:4cqw;font:400 3cqw/1.3 Inter,Arial,sans-serif;color:#c83a4d;}
+.app-pin-keypad{position:absolute;top:45.3%;left:50%;transform:translateX(-50%);display:grid;grid-template-columns:repeat(3,16cqw);gap:4cqw 5.4cqw;}
+.app-pin-key{display:grid;place-items:center;width:16cqw;height:16cqw;border:0;border-radius:50%;padding:0;background:#f4f4fa;color:#090f2d;font:600 6.4cqw/1 Inter,Arial,sans-serif;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.app-pin-key:active{background:#e9e9f2;transform:scale(.96);}
+.app-pin-key:focus-visible{outline:2px solid #e6ba00;outline-offset:3px;}
+.app-pin-key svg{display:block;width:6.4cqw;height:6.4cqw;stroke:#787d8a;}
+.app-pin-key.biometric svg{width:7.1cqw;height:7.1cqw;}
+.app-pin-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+@keyframes app-pin-shake{0%,100%{margin-left:0;}25%{margin-left:-1cqw;}75%{margin-left:1cqw;}}
+@media(prefers-reduced-motion:reduce){.app-pin-dots.is-error{animation:none;}.app-pin-key:active{transform:none;}}
+@media(max-aspect-ratio:1/2.3){.app-pin-keypad{top:43.5%;}}
+@media(max-height:560px){.app-pin-logo{top:5%;width:14cqw;height:14cqw;}.app-pin-label{top:26%;font-size:2.8cqw;}.app-pin-dots{top:34%;}.app-pin-keypad{top:45%;grid-template-columns:repeat(3,min(10cqw,12vh));gap:1.3vh 5.4cqw;}.app-pin-key{width:min(10cqw,12vh);height:min(10cqw,12vh);font-size:min(4.5cqw,6vh);}.app-pin-key svg{width:4.6cqw;height:4.6cqw;}.app-pin-key.biometric svg{width:5cqw;height:5cqw;}}
+</style>
 </head>
 <body class="bg-slate-900 flex justify-center items-center min-h-screen p-0 sm:p-4">
-  <div id="onay-app-root" class="w-full max-w-[410px] bg-[#f8f9fa] h-[100dvh] sm:h-[844px] sm:rounded-[40px] shadow-2xl relative flex flex-col overflow-hidden border-0 sm:border-8 sm:border-slate-800">
+  <div id="onay-app-root" class="app-pin-locked w-full max-w-[410px] bg-[#f8f9fa] h-[100dvh] sm:h-[844px] sm:rounded-[40px] shadow-2xl relative flex flex-col overflow-hidden border-0 sm:border-8 sm:border-slate-800">
+    <section id="app-pin-gate" role="dialog" aria-modal="true" aria-label="Кіру коды">
+      <div id="app-pin-splash" class="app-pin-splash" role="status" aria-label="Жүктелуде">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#090e2b"/><path d="M27 50h44M52 30l21 20-21 20" fill="none" stroke="#ffdd00" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div id="app-pin-screen" class="app-pin-screen" tabindex="-1" hidden>
+        <div class="app-pin-logo" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><linearGradient id="app-pin-logo-gradient" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffe700"/><stop offset="1" stop-color="#ffba00"/></linearGradient></defs><circle cx="50" cy="50" r="50" fill="url(#app-pin-logo-gradient)"/><circle cx="50" cy="50" r="27.5" fill="#090e2b"/><path d="M37 50h25M52 40l11 10-11 10" fill="none" stroke="#ffda00" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p class="app-pin-label">Fingerprint / Face ID немесе кіру коды</p>
+        <div id="app-pin-dots" class="app-pin-dots" role="status" aria-label="4 таңбаның 0 енгізілді"><span class="app-pin-dot"></span><span class="app-pin-dot"></span><span class="app-pin-dot"></span><span class="app-pin-dot"></span></div>
+        <p id="app-pin-error" class="app-pin-error" role="alert"></p>
+        <div class="app-pin-keypad" role="group" aria-label="Кіру кодын енгізу">
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('1')" aria-label="1">1</button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('2')" aria-label="2">2</button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('3')" aria-label="3">3</button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('4')" aria-label="4">4</button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('5')" aria-label="5">5</button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('6')" aria-label="6">6</button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('7')" aria-label="7">7</button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('8')" aria-label="8">8</button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('9')" aria-label="9">9</button>
+          <button class="app-pin-key biometric" type="button" onclick="appPinBiometricHint()" aria-label="Fingerprint / Face ID" title="Кіру кодын пайдаланыңыз"><svg viewBox="0 0 32 32" fill="none" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M7 4c5-3 13-3 18 0M4.5 9C9 3 23 3 27.5 9M3 16C3 3 29 3 29 16m-23 8c-2-3-2-5-2-8m24 2c0 6 1 8 2 9M9 28c-3-4-3-9-3-12 0-10 20-10 20 0 0 5 0 8 3 13M13 30c-4-4-5-10-5-14 0-7 16-7 16 0 0 7 1 11 3 14M17 30c-5-4-7-9-7-14 0-5 12-5 12 0 0 8 1 12 3 15M19 26c-3-3-5-6-5-10 0-2 4-2 4 0 0 8 3 13 4 15M16 19c0 4 1 8 4 12"/></svg></button>
+          <button class="app-pin-key" type="button" onclick="enterAppPinDigit('0')" aria-label="0">0</button>
+          <button class="app-pin-key" type="button" onclick="eraseAppPinDigit()" aria-label="Соңғы санды өшіру"><svg viewBox="0 0 28 28" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5h13a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H10L3 14l7-9Z"/><path d="m13 10 7 8m0-8-7 8"/></svg></button>
+        </div>
+      </div>
+    </section>
     <!-- MAIN: жүйелік уақыт/интернет/батареяны қайталайтын жасанды жолақ алынып тасталды -->
     <div id="page-main" class="flex-1 flex flex-col overflow-hidden relative">
       <!-- Екі таб: бірін басқанда екіншісінің мазмұнына өтеді -->
@@ -16079,7 +16132,7 @@ function findAlignmentPattern(matrix, alignmentPatternQuads, topRight, topLeft, 
       <div class="menu-group">${menuRow('Менің профилім',"menuShowView('profile')",{icon:'profile'})}${menuRow('Менің қалам',"showToast('Қала — Алматы')",{icon:'city',value:'Алматы'})}${menuRow('Қауіпсіздік',"menuShowView('security')",{icon:'security'})}${menuRow('Қолданба баптаулары',"menuShowView('settings')",{icon:'settings'})}${menuRow('Қызмет көрсету орындары','',{icon:'places',href:'https://onay.kz/?page_id=34'})}</div>
       <div class="menu-group">${menuRow('Жеңілдіктер','',{icon:'discount',href:'https://onay.kz/'})}</div>
       <div class="menu-group">${menuRow('Көмек',"menuShowView('help')",{icon:'help'})}${menuRow('Қолданба туралы',"menuShowView('about')",{icon:'info',value:'3.6.2'})}</div>
-      <div class="menu-group">${menuRow('Шығу',"menuNavigate('cards')",{icon:'exit'})}</div>`;
+      <div class="menu-group">${menuRow('Шығу',"signOutToAppPin()",{icon:'exit'})}</div>`;
       if(key==='profile')return `<div class="menu-group">${menuRow('Телефон нөмірі','menuUnavailable()',{plain:true,value:'+7 702 --- -- 60'})}${menuRow('E-mail','menuUnavailable()',{plain:true})}${menuRow('Құпия сөзді өзгерту','menuUnavailable()',{plain:true})}</div><div class="menu-group">${menuRow('Тіркелгіні жою',"showToast('Бұл сайтта серверлік тіркелгі жоқ')",{plain:true,end:'trash'})}</div>`;
       if(key==='security')return `<div class="menu-group menu-security-single"><div class="menu-row plain"><span class="menu-row-label">Touch ID/Fingerprint</span><button id="menu-fingerprint-preview" class="menu-switch" type="button" role="switch" aria-label="Touch ID/Fingerprint интерфейс үлгісі" aria-checked="${menuFingerprintPreview}" onclick="toggleMenuFingerprintPreview()"></button></div></div><div class="menu-group">${menuRow('Рұқсаттама кодын өзгерту','menuUnavailable()',{plain:true})}${menuRow('Кодтық сөз','menuUnavailable()',{plain:true})}${menuRow('Жоғары рұқсат','menuUnavailable()',{plain:true})}</div>`;
       if(key==='settings')return `<div class="menu-group">${menuRow('Хабарламалар',"menuNavigate('notifications')",{plain:true})}${menuRow('Интерфейс тілі',"showToast('Интерфейс тілі — Қазақша')",{plain:true,value:'Қазақша'})}</div>`;
@@ -16148,6 +16201,51 @@ function findAlignmentPattern(matrix, alignmentPatternQuads, topRight, topLeft, 
       const heart=bar.querySelector('.nav-icon-life'),holder=document.createElement('span');holder.className='life-active-heart';heart.classList.remove('onay-heart');heart.setAttribute('fill','white');heart.replaceWith(holder);holder.append(heart);el('page-life').append(bar);lifeShowView('home');
     }
     buildLifeNavigation();
+
+    // Local interface lock only; the fixed code is never submitted to a server.
+    let appPinValue='',appPinBusy=false,appPinTimer=null,appPinPriorInert=[];
+    function appPinMatches(value){return value==='2011';}
+    function renderAppPin(){
+      const dots=el('app-pin-dots');dots.classList.remove('is-error');
+      dots.querySelectorAll('.app-pin-dot').forEach((dot,i)=>dot.classList.toggle('filled',i<appPinValue.length));
+      dots.setAttribute('aria-label',`4 таңбаның ${appPinValue.length} енгізілді`);
+    }
+    function unlockAppPin(){
+      clearTimeout(appPinTimer);appPinValue='';appPinBusy=false;
+      el('app-pin-gate').hidden=true;el('onay-app-root').classList.remove('app-pin-locked');
+      appPinPriorInert.forEach(x=>x.node.inert=x.prior);appPinPriorInert=[];
+      el('tab-my-cards').focus({preventScroll:true});
+    }
+    function enterAppPinDigit(digit){
+      if(el('app-pin-gate').hidden||el('app-pin-screen').hidden||appPinBusy||!/^\d$/.test(digit)||appPinValue.length>=4)return;
+      appPinValue+=digit;el('app-pin-error').textContent='';renderAppPin();
+      if(appPinValue.length!==4)return;appPinBusy=true;
+      appPinTimer=setTimeout(()=>{
+        if(appPinMatches(appPinValue)){unlockAppPin();return;}
+        el('app-pin-error').textContent='Код қате. Қайта енгізіңіз.';el('app-pin-dots').classList.add('is-error');
+        appPinTimer=setTimeout(()=>{appPinValue='';appPinBusy=false;renderAppPin();},550);
+      },130);
+    }
+    function eraseAppPinDigit(){
+      if(appPinBusy||el('app-pin-gate').hidden)return;
+      appPinValue=appPinValue.slice(0,-1);el('app-pin-error').textContent='';renderAppPin();
+    }
+    function appPinBiometricHint(){if(!appPinBusy)el('app-pin-error').textContent='Кіру кодын енгізіңіз.';}
+    function lockAppPin(withSplash=false){
+      clearTimeout(appPinTimer);appPinValue='';appPinBusy=false;el('app-pin-error').textContent='';renderAppPin();
+      if(!appPinPriorInert.length)appPinPriorInert=[...el('onay-app-root').children].filter(node=>node.id!=='app-pin-gate').map(node=>({node,prior:node.inert}));
+      appPinPriorInert.forEach(x=>x.node.inert=true);el('onay-app-root').classList.add('app-pin-locked');el('app-pin-gate').hidden=false;
+      el('app-pin-splash').hidden=!withSplash;el('app-pin-screen').hidden=withSplash;
+      const showPin=()=>{el('app-pin-splash').hidden=true;el('app-pin-screen').hidden=false;el('app-pin-screen').focus({preventScroll:true});};
+      if(withSplash)appPinTimer=setTimeout(showPin,700);else showPin();
+    }
+    function signOutToAppPin(){closeMenuPage(false);closeRoutesPage();setCardsTab('my');lockAppPin();}
+    document.addEventListener('keydown',event=>{
+      if(el('app-pin-gate').hidden)return;
+      if(/^\d$/.test(event.key)){event.preventDefault();event.stopImmediatePropagation();enterAppPinDigit(event.key);}
+      else if(['Backspace','Delete','Escape','Enter'].includes(event.key)){event.preventDefault();event.stopImmediatePropagation();if(event.key==='Escape'){if(!appPinBusy){appPinValue='';el('app-pin-error').textContent='';renderAppPin();}}else if(event.key!=='Enter')eraseAppPinDigit();}
+    },true);
+    lockAppPin(true);
 
     // Android қайту батырмасы немесе браузер Escape.
     document.addEventListener('keydown', e => {
